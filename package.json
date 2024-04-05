@@ -1,4 +1,6 @@
 {
+  "name": "@alt-research/orbit-sdk-avail",
+  "description": "TypeScript SDK for building Arbitrum Orbit chains",
   "workspaces": [
     "src",
     "examples/*"
