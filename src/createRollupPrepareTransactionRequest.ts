@@ -45,8 +45,12 @@ export async function createRollupPrepareTransactionRequest({
 }: CreateRollupPrepareTransactionRequestParams) {
   const chainId = validateParentChain(publicClient);
 
-  if (params.batchPoster === zeroAddress) {
+  if (params.batchPosters[0] === zeroAddress) {
     throw new Error(`"params.batchPoster" can't be set to the zero address.`);
+  }
+
+  if (params.batchPosterManager === zeroAddress) {
+    throw new Error(`"params.batchPosterManager" can't be set to the zero address.`);
   }
 
   if (params.validators.length === 0 || params.validators.includes(zeroAddress)) {
