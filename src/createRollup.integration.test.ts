@@ -31,7 +31,8 @@ describe(`createRollup`, async () => {
     // assert all inputs are correct
     const [arg] = createRollupInformation.transaction.getInputs();
     expect(arg.config).toEqual(createRollupInformation.config);
-    expect(arg.batchPoster).toEqual(batchPoster);
+    expect(arg.batchPosters).toEqual([batchPoster]);
+    expect(arg.batchPosterManager).toEqual([batchPoster]);
     expect(arg.validators).toEqual(validators);
     expect(arg.maxDataSize).toEqual(104_857n);
     expect(arg.nativeToken).toEqual(zeroAddress);

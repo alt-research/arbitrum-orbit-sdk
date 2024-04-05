@@ -55,7 +55,8 @@ export async function createTestRollup({
   const request = await createRollupPrepareTransactionRequest({
     params: {
       config,
-      batchPoster,
+      batchPosters: [batchPoster],
+      batchPosterManager: batchPoster,
       validators,
     },
     account: deployer.address,
