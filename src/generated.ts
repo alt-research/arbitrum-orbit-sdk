@@ -605,47 +605,131 @@ export const rollupCreatorABI = [
     type: 'function',
     inputs: [
       {
-        name: 'deployParams',
-        internalType: 'struct RollupCreator.RollupDeploymentParams',
-        type: 'tuple',
         components: [
           {
-            name: 'config',
-            internalType: 'struct Config',
-            type: 'tuple',
             components: [
-              { name: 'confirmPeriodBlocks', internalType: 'uint64', type: 'uint64' },
-              { name: 'extraChallengeTimeBlocks', internalType: 'uint64', type: 'uint64' },
-              { name: 'stakeToken', internalType: 'address', type: 'address' },
-              { name: 'baseStake', internalType: 'uint256', type: 'uint256' },
-              { name: 'wasmModuleRoot', internalType: 'bytes32', type: 'bytes32' },
-              { name: 'owner', internalType: 'address', type: 'address' },
-              { name: 'loserStakeEscrow', internalType: 'address', type: 'address' },
-              { name: 'chainId', internalType: 'uint256', type: 'uint256' },
-              { name: 'chainConfig', internalType: 'string', type: 'string' },
-              { name: 'genesisBlockNum', internalType: 'uint64', type: 'uint64' },
               {
-                name: 'sequencerInboxMaxTimeVariation',
-                internalType: 'struct ISequencerInbox.MaxTimeVariation',
-                type: 'tuple',
-                components: [
-                  { name: 'delayBlocks', internalType: 'uint256', type: 'uint256' },
-                  { name: 'futureBlocks', internalType: 'uint256', type: 'uint256' },
-                  { name: 'delaySeconds', internalType: 'uint256', type: 'uint256' },
-                  { name: 'futureSeconds', internalType: 'uint256', type: 'uint256' },
-                ],
+                internalType: 'uint64',
+                name: 'confirmPeriodBlocks',
+                type: 'uint64'
               },
+              {
+                internalType: 'uint64',
+                name: 'extraChallengeTimeBlocks',
+                type: 'uint64'
+              },
+              {
+                internalType: 'address',
+                name: 'stakeToken',
+                type: 'address'
+              },
+              {
+                internalType: 'uint256',
+                name: 'baseStake',
+                type: 'uint256'
+              },
+              {
+                internalType: 'bytes32',
+                name: 'wasmModuleRoot',
+                type: 'bytes32'
+              },
+              {
+                internalType: 'address',
+                name: 'owner',
+                type: 'address'
+              },
+              {
+                internalType: 'address',
+                name: 'loserStakeEscrow',
+                type: 'address'
+              },
+              {
+                internalType: 'uint256',
+                name: 'chainId',
+                type: 'uint256'
+              },
+              {
+                internalType: 'string',
+                name: 'chainConfig',
+                type: 'string'
+              },
+              {
+                internalType: 'uint64',
+                name: 'genesisBlockNum',
+                type: 'uint64'
+              },
+              {
+                components: [
+                  {
+                    internalType: 'uint256',
+                    name: 'delayBlocks',
+                    type: 'uint256'
+                  },
+                  {
+                    internalType: 'uint256',
+                    name: 'futureBlocks',
+                    type: 'uint256'
+                  },
+                  {
+                    internalType: 'uint256',
+                    name: 'delaySeconds',
+                    type: 'uint256'
+                  },
+                  {
+                    internalType: 'uint256',
+                    name: 'futureSeconds',
+                    type: 'uint256'
+                  }
+                ],
+                internalType: 'struct ISequencerInbox.MaxTimeVariation',
+                name: 'sequencerInboxMaxTimeVariation',
+                type: 'tuple'
+              }
             ],
+            internalType: 'struct Config',
+            name: 'config',
+            type: 'tuple'
           },
-          { name: 'batchPosters', internalType: 'address[]', type: 'address[]' },
-          { name: 'validators', internalType: 'address[]', type: 'address[]' },
-          { name: 'maxDataSize', internalType: 'uint256', type: 'uint256' },
-          { name: 'nativeToken', internalType: 'address', type: 'address' },
-          { name: 'deployFactoriesToL2', internalType: 'bool', type: 'bool' },
-          { name: 'maxFeePerGasForRetryables', internalType: 'uint256', type: 'uint256' },
-          { name: 'batchPosterManager', internalType: 'address', type: 'address' },
+          {
+            internalType: 'address[]',
+            name: 'validators',
+            type: 'address[]'
+          },
+          {
+            internalType: 'uint256',
+            name: 'maxDataSize',
+            type: 'uint256'
+          },
+          {
+            internalType: 'address',
+            name: 'nativeToken',
+            type: 'address'
+          },
+          {
+            internalType: 'bool',
+            name: 'deployFactoriesToL2',
+            type: 'bool'
+          },
+          {
+            internalType: 'uint256',
+            name: 'maxFeePerGasForRetryables',
+            type: 'uint256'
+          },
+          {
+            internalType: 'address[]',
+            name: 'batchPosters',
+            type: 'address[]'
+          },
+          {
+            internalType: 'address',
+            name: 'batchPosterManager',
+            type: 'address'
+          }
         ],
-      },
+        internalType: 'struct RollupCreator.RollupDeploymentParams',
+        name: 'deployParams',
+        type: 'tuple'
+      }
     ],
     name: 'createRollup',
     outputs: [{ name: '', internalType: 'address', type: 'address' }],
