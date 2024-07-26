@@ -66,21 +66,48 @@ export async function createRollupFetchTransactionHash({
       : 'earliest';
 
   // Find the RollupInitialized event from that Rollup contract
-  const rollupInitializedEvents = await publicClient.getLogs({
-    address: rollup,
-    event: RollupInitializedEventAbi,
-    fromBlock,
-    toBlock: 'latest',
-  });
-
-  if (rollupInitializedEvents.length !== 1) {
-    throw new Error(
-      `Expected to find 1 RollupInitialized event for rollup address ${rollup} but found ${rollupInitializedEvents.length}`,
-    );
+  var transactionHash = "";
+  if (fromBlock != 'earliest') {
+    const latestBlockNumber = await publicClient.getBlockNumber();
+    var rangeStart = fromBlock;
+    while (rangeStart < latestBlockNumber) {
+      var rangeEnd = rangeStart + BigInt(9_999);
+      if (rangeEnd > latestBlockNumber) {
+        rangeEnd = latestBlockNumber;
+      }
+      const rollupInitializedEvents = await publicClient.getLogs({
+        address: rollup,
+        event: RollupInitializedEventAbi,
+        fromBlock: rangeStart,
+        toBlock: rangeEnd,
+      });
+      if (rollupInitializedEvents.length == 0) {
+        rangeStart = rangeEnd + BigInt(1);
+      } else if (rollupInitializedEvents.length == 1) {
+        // Get the transaction hash that emitted that event
+        transactionHash = rollupInitializedEvents[0].transactionHash;
+        break;
+      } else {
+        throw new Error(
+          `Expected to find 1 RollupInitialized event for rollup address ${rollup} but found ${rollupInitializedEvents.length}`,
+        );
+      }
+    }
+  } else {
+    const rollupInitializedEvents = await publicClient.getLogs({
+      address: rollup,
+      event: RollupInitializedEventAbi,
+      fromBlock,
+      toBlock: 'latest',
+    });
+    if (rollupInitializedEvents.length !== 1) {
+      throw new Error(
+        `Expected to find 1 RollupInitialized event for rollup address ${rollup} but found ${rollupInitializedEvents.length}`,
+      );
+    }
+    // Get the transaction hash that emitted that event
+    transactionHash = rollupInitializedEvents[0].transactionHash;
   }
-
-  // Get the transaction hash that emitted that event
-  const transactionHash = rollupInitializedEvents[0].transactionHash;
 
   if (!transactionHash) {
     throw new Error(
