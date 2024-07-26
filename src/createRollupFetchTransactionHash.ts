@@ -66,7 +66,6 @@ export async function createRollupFetchTransactionHash({
       : 'earliest';
 
   // Find the RollupInitialized event from that Rollup contract
-  var transactionHash = "";
   if (fromBlock != 'earliest') {
     const latestBlockNumber = await publicClient.getBlockNumber();
     var rangeStart = fromBlock;
@@ -85,8 +84,13 @@ export async function createRollupFetchTransactionHash({
         rangeStart = rangeEnd + BigInt(1);
       } else if (rollupInitializedEvents.length == 1) {
         // Get the transaction hash that emitted that event
-        transactionHash = rollupInitializedEvents[0].transactionHash;
-        break;
+        const transactionHash = rollupInitializedEvents[0].transactionHash;
+        if (!transactionHash) {
+          throw new Error(
+            `No transactionHash found in RollupInitialized event for rollup address ${rollup}`,
+          );
+        }
+        return transactionHash;
       } else {
         throw new Error(
           `Expected to find 1 RollupInitialized event for rollup address ${rollup} but found ${rollupInitializedEvents.length}`,
@@ -106,14 +110,12 @@ export async function createRollupFetchTransactionHash({
       );
     }
     // Get the transaction hash that emitted that event
-    transactionHash = rollupInitializedEvents[0].transactionHash;
+    const transactionHash = rollupInitializedEvents[0].transactionHash;
+    if (!transactionHash) {
+      throw new Error(
+        `No transactionHash found in RollupInitialized event for rollup address ${rollup}`,
+      );
+    }
+    return transactionHash;
   }
-
-  if (!transactionHash) {
-    throw new Error(
-      `No transactionHash found in RollupInitialized event for rollup address ${rollup}`,
-    );
-  }
-
-  return transactionHash;
 }
