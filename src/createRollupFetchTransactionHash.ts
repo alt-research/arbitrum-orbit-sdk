@@ -63,7 +63,7 @@ export async function createRollupFetchTransactionHash({
   console.log(`createRollupFetchTransactionHash: chainId = ${chainId}`);
 
   const fromBlock =
-    chainId in Object.keys(earliestRollupCreatorDeploymentBlockNumber)
+    chainId.toString() in Object.keys(earliestRollupCreatorDeploymentBlockNumber)
       ? earliestRollupCreatorDeploymentBlockNumber[chainId]
       : 'earliest';
 
