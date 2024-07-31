@@ -62,10 +62,20 @@ export async function createRollupFetchTransactionHash({
 
   console.log(`createRollupFetchTransactionHash: chainId = ${chainId}`);
 
-  const fromBlock =
-    chainId.toString() in Object.keys(earliestRollupCreatorDeploymentBlockNumber)
-      ? earliestRollupCreatorDeploymentBlockNumber[chainId]
-      : 'earliest';
+  // This code does not seem to work well
+  // const fromBlock =
+  //   chainId in Object.keys(earliestRollupCreatorDeploymentBlockNumber)
+  //     ? earliestRollupCreatorDeploymentBlockNumber[chainId]
+  //     : 'earliest';
+
+  var found = false;
+  for (const key in earliestRollupCreatorDeploymentBlockNumber) {
+    if (chainId.toString() == key) {
+      found = true;
+      break;
+    }
+  }
+  const fromBlock = found ? earliestRollupCreatorDeploymentBlockNumber[chainId] : 'earliest';
 
   // Find the RollupInitialized event from that Rollup contract
   var transactionHash = "" as `0x${string}`;
