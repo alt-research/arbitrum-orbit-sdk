@@ -60,18 +60,16 @@ export async function createRollupFetchTransactionHash({
 }: CreateRollupFetchTransactionHashParams) {
   const chainId = validateParentChain(publicClient);
 
-  // This code block seems not working, always returns 'earliest' even for Sepolia
-  // const fromBlock =
-  //   chainId in Object.keys(earliestRollupCreatorDeploymentBlockNumber)
-  //     ? earliestRollupCreatorDeploymentBlockNumber[chainId]
-  //     : 'earliest';
+  console.log(`createRollupFetchTransactionHash: chainId = ${chainId}`);
 
-  const fromBlock = earliestRollupCreatorDeploymentBlockNumber[chainId]
+  const fromBlock =
+    chainId in Object.keys(earliestRollupCreatorDeploymentBlockNumber)
+      ? earliestRollupCreatorDeploymentBlockNumber[chainId]
+      : 'earliest';
 
   // Find the RollupInitialized event from that Rollup contract
   var transactionHash = "" as `0x${string}`;
-  if (true) {
-  //if (fromBlock != 'earliest') {
+  if (fromBlock != 'earliest') {
     const latestBlockNumber = await publicClient.getBlockNumber();
     var rangeStart = fromBlock;
     while (rangeStart < latestBlockNumber) {
@@ -79,6 +77,7 @@ export async function createRollupFetchTransactionHash({
       if (rangeEnd > latestBlockNumber) {
         rangeEnd = latestBlockNumber;
       }
+      console.log(`createRollupFetchTransactionHash: getLogs from=${rangeStart} to=${rangeEnd}`);
       const rollupInitializedEvents = await publicClient.getLogs({
         address: rollup,
         event: RollupInitializedEventAbi,
