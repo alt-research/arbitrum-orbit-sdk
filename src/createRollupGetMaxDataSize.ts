@@ -8,6 +8,6 @@ export function createRollupGetMaxDataSize(parentChainId: ParentChainId) {
   }
 
   // L3
-  //return BigInt(104_857);
-  return BigInt(117_964);
+  return BigInt(104_857);
+  //return BigInt(117_964);
 }
