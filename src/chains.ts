@@ -1,12 +1,13 @@
 import { defineChain } from 'viem';
 import {
   mainnet,
-  holesky,
   arbitrum as arbitrumOne,
   arbitrumNova,
+  base,
   sepolia,
+  holesky,
   arbitrumSepolia,
-  berachainTestnetbArtio,
+  baseSepolia,
 } from 'viem/chains';
 
 const nitroTestnodeL1 = defineChain({
@@ -59,15 +60,18 @@ const nitroTestnodeL3 = defineChain({
 });
 
 export const chains = [
-  // mainnet
+  // mainnet L1
   mainnet,
+  // mainnet L2
   arbitrumOne,
   arbitrumNova,
-  // testnet
+  base,
+  // testnet L1
   sepolia,
   holesky,
+  // testnet L2
   arbitrumSepolia,
-  berachainTestnetbArtio,
+  baseSepolia,
   // local nitro-testnode
   nitroTestnodeL1,
   nitroTestnodeL2,
@@ -75,15 +79,18 @@ export const chains = [
 ] as const;
 
 export {
-  // mainnet
+  // mainnet L1
   mainnet,
+  // mainnet L2
   arbitrumOne,
   arbitrumNova,
-  // testnet
+  base,
+  // testnet L1
   sepolia,
   holesky,
+  // testnet L2
   arbitrumSepolia,
-  berachainTestnetbArtio,
+  baseSepolia,
   // local nitro-testnode
   nitroTestnodeL1,
   nitroTestnodeL2,
